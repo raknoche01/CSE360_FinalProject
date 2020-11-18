@@ -21,7 +21,13 @@ class MenuActionListener implements ActionListener {
   			if(cont == 0)
   				cont++;
   			prev = "load";
-  			Main.loadRos.loadNow();
+
+			if(LoadRoster.end != true)
+			{
+  				Main.loadRos.loadNow();
+  				Main.frame.add(LoadRoster.scrollStud);
+  				Main.frame.setVisible(true);
+			}
   		}
 
   		else if(cont > 0 && selected == "Add Attendance")
@@ -49,7 +55,6 @@ class MenuActionListener implements ActionListener {
 				Main.plot.plotNow(Main.loadRos.getEntries());
 			else
 				Main.plot.plotNow(Main.addAtt.getEntries());
-
 		}
 
 		else
@@ -75,11 +80,12 @@ public class Main extends JFrame {
 	static AddAttendance addAtt;
 	static Save toSave;
 	static Plot plot;
+	static JFrame frame;
 
 
 	public Main(){
 
-		JFrame frame = new JFrame("CSE360 Final Project");
+		frame = new JFrame("CSE360 Final Project");
 		JMenuBar mb = new JMenuBar();
 
 		//creating the menus

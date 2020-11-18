@@ -6,7 +6,7 @@ import java.util.*;
  */
 public class ListEntry
 {
-	private int iD = 0;
+	private String iD = "NULL";
 	private String firstName = "NULL";
 	private String lastName = "NULL";
 	private String program = "NULL";
@@ -18,7 +18,7 @@ public class ListEntry
 	/*
 	* This is to set the ID
 	*/
-	void setID(int usrID)
+	void setID(String usrID)
 	{
 		iD = usrID;
 	}
@@ -26,7 +26,7 @@ public class ListEntry
 	/*
 	* This is to get the ID
 	*/
-	int getID()
+	String getID()
 	{
 		return iD;
 	}
@@ -148,5 +148,19 @@ public class ListEntry
 		int pos = dates.indexOf(date);
 		if(pos >=0)
 			times.set(pos, time);
+	}
+
+	/*
+	* This is for debugging purposes!
+	*/
+	void printAll()
+	{
+		System.out.print(iD + " " + firstName + " " + lastName + " " + program + " " + level + " " + asurite);
+		int numDates = getNumDates();
+		for(int ind = 0; ind < numDates; ind++)
+		{
+			System.out.print(" " + dates.get(ind) + " " + times.get(ind));
+		}
+		System.out.print("\n");
 	}
 }
