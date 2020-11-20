@@ -16,18 +16,19 @@ class MenuActionListener implements ActionListener {
   		int cont = Main.num;
   		String prev = Main.last;
 
+		DisplayInfo toDis = new DisplayInfo();
   		if(selected == "Load a Roster")
   		{
   			if(cont == 0)
   				cont++;
   			prev = "load";
 
-			if(LoadRoster.end != true)
-			{
-  				Main.loadRos.loadNow();
-  				Main.frame.add(LoadRoster.scrollStud);
-  				Main.frame.setVisible(true);
-			}
+  			Main.loadRos.loadNow();
+
+			toDis.displayNow(Main.loadRos.getEntries());
+
+  			Main.frame.add(DisplayInfo.scrollStud);
+  			Main.frame.setVisible(true);
   		}
 
   		else if(cont > 0 && selected == "Add Attendance")
@@ -36,6 +37,18 @@ class MenuActionListener implements ActionListener {
   				cont++;
   			prev = "add";
   			Main.addAtt.addNow(Main.loadRos.getEntries());
+			toDis.displayNow(Main.loadRos.getEntries());
+  			System.out.println("back to main from addAtten");
+  			//Main.frame.setVisible(false);
+  			Main.frame.remove(DisplayInfo.scrollStud);
+  			Main.frame.revalidate();
+  			Main.frame.repaint();
+
+  			Main.frame.add(DisplayInfo.scrollStud);
+  			Main.frame.revalidate();
+  			//Main.frame(DisplayInfo.scrollStud);
+  			Main.frame.repaint();
+  			Main.frame.setVisible(true);
 		}
 
 		else if(cont > 1 && selected == "Save")
@@ -128,8 +141,24 @@ public class Main extends JFrame {
 		plot = new Plot();
 
 	}
+
+	static void reprint()
+	{
+		System.out.println("back to main from addAtten");
+		//Main.frame.setVisible(false);
+		Main.frame.remove(DisplayInfo.scrollStud);
+		Main.frame.revalidate();
+		Main.frame.repaint();
+		//Thread.sleep(4000);
+		Main.frame.add(DisplayInfo.scrollStud);
+		Main.frame.revalidate();
+ 		//Main.frame(DisplayInfo.scrollStud);
+		Main.frame.repaint();
+  		Main.frame.setVisible(true);
+	}
 	public static void main(String[] args) {
 		new Main();
+		//reprint();
 	}
 
 }

@@ -114,9 +114,38 @@ public class ListEntry
 	/*
 	* This is to add a date and time
 	*/
-	void addDate(String date, int time)
+	void addDate(String month, String day, int time)
 	{
-		dates.add(date);
+		switch(month)
+		{
+			case "1": month = "Jan";
+				break;
+			case "2": month = "Feb";
+				break;
+			case "3": month = "Mar";
+				break;
+			case "4": month = "Apr";
+				break;
+			case "5": month = "May";
+				break;
+			case "6": month = "Jun";
+				break;
+			case "7": month = "Jul";
+				break;
+			case "8": month = "Aug";
+				break;
+			case "9": month = "Sep";
+				break;
+			case "10": month = "Oct";
+				break;
+			case "11": month = "Nov";
+				break;
+			case "12": month = "Dec";
+				break;
+			default: month = "NULL";
+		}
+
+		dates.add(month + " " + day);
 		times.add(time);
 	}
 
@@ -129,15 +158,37 @@ public class ListEntry
 	}
 
 	/*
+	*
+	*/
+	LinkedList<String> getDates()
+	{
+		return dates;
+	}
+
+	/*
 	* This is to get the time of a date
 	*/
-	int getTime(String date)
+	String getTime(String date)
 	{
+		int numDates = getNumDates();
+		int ind = 0;
+		while(!dates.get(ind).equals(date))
+		{
+			ind++;
+		}
+		System.out.println("this says the date passed " + date + " equals this found date " + dates.get(ind));
+		return Integer.toString(times.get(ind));
+
+
+		/*
 		int pos = dates.indexOf(date);
 		if(pos >=0)
-			return times.get(pos);
+		{
+			System.out.println("inside of getTime, pos is " + pos);
+			return Integer.toString(times.get(pos));
+		}
 		else
-			return 0;
+			return "0";*/
 	}
 
 	/*
@@ -155,7 +206,7 @@ public class ListEntry
 	*/
 	void printAll()
 	{
-		System.out.print(iD + " " + firstName + " " + lastName + " " + program + " " + level + " " + asurite);
+		//System.out.print(iD + " " + firstName + " " + lastName + " " + program + " " + level + " " + asurite);
 		int numDates = getNumDates();
 		for(int ind = 0; ind < numDates; ind++)
 		{

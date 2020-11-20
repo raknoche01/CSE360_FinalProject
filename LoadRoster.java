@@ -11,8 +11,7 @@ import javax.swing.filechooser.*;
 public class LoadRoster
 {
     protected LinkedList<ListEntry> entries = new LinkedList<ListEntry>();
-    static JScrollPane scrollStud;
-    static boolean end = false;
+
 
 	/*
 	 * loadNow is responsible for prompting the user to choose a file,
@@ -23,22 +22,11 @@ public class LoadRoster
 	 */
     void loadNow()
     {
-		JLabel l;
-		String csvFile = "null";
-		end = false;
+		FileChooser fChoose = new FileChooser();
+		String csvFile = "NULL";
+		csvFile = fChoose.spawnChooser();
 
-		JFileChooser j = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-		int r = j.showOpenDialog(null);
-		l = new JLabel("no file selected");
-
-		if (r == JFileChooser.APPROVE_OPTION)
-			csvFile = (j.getSelectedFile().getAbsolutePath());
-		else
-		{
-			l.setText("the user cancelled the operation");
-			end = true;
-		}
-		if(end == false)
+		if(csvFile != "NULL")
 		{
 			String delim = ",";
 			LinkedList<String> temp = new LinkedList<String>();
@@ -82,36 +70,13 @@ public class LoadRoster
 			buffRead.close();
 			} catch(IOException ioe) {
 				ioe.printStackTrace();
-				end = true;
         	}
 		}
-		if(end == false)
-		{
-			String column[] = {"ID","First Name","Last Name","Program","Level","ASURITE"};
-			int numColumns = entries.size();
-        	String[][] data = new String[numColumns][6]; //{{"NULL"}, {"NULL"}};
 
-			for(int ind = 0; ind < numColumns; ind++)
-			{
-				ListEntry toWrite = entries.get(ind);
-				data[ind][0] = toWrite.getID();
-				data[ind][1] = toWrite.getFirstName();
-				data[ind][2] = toWrite.getLastName();
-				data[ind][3] = toWrite.getProgram();
-				data[ind][4] = toWrite.getLevel();
-				data[ind][5] = toWrite.getAsurite();
-			}
-			JTable studInfo = new JTable(data, column);
-			studInfo.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-
-			for(int i =0; i < 6; i++)
-				studInfo.getColumnModel().getColumn(i).setPreferredWidth(120);
-
-			scrollStud = new JScrollPane(studInfo);
-			scrollStud.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-			scrollStud.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-		}
+		//DisplayInfo toDis = new DisplayInfo();
+		//toDis.displayNow(entries);
 	}
+
 	/**
 	 * This method is used by main to get all of the information made here
 	 * so it can give it to other parts of the program.
