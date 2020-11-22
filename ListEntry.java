@@ -176,26 +176,15 @@ public class ListEntry
 		{
 			ind++;
 		}
-		System.out.println("this says the date passed " + date + " equals this found date " + dates.get(ind));
 		return Integer.toString(times.get(ind));
-
-
-		/*
-		int pos = dates.indexOf(date);
-		if(pos >=0)
-		{
-			System.out.println("inside of getTime, pos is " + pos);
-			return Integer.toString(times.get(pos));
-		}
-		else
-			return "0";*/
 	}
 
 	/*
 	* This is to change the time of a date
 	*/
-	void changeTime(String date, int time)
+	void changeTime(String month, String day, int time)
 	{
+		String date = month + " " + day;
 		int pos = dates.indexOf(date);
 		if(pos >=0)
 			times.set(pos, time);
@@ -206,7 +195,6 @@ public class ListEntry
 	*/
 	void printAll()
 	{
-		//System.out.print(iD + " " + firstName + " " + lastName + " " + program + " " + level + " " + asurite);
 		int numDates = getNumDates();
 		for(int ind = 0; ind < numDates; ind++)
 		{

@@ -22,13 +22,7 @@ class MenuActionListener implements ActionListener {
   			if(cont == 0)
   				cont++;
   			prev = "load";
-
   			Main.loadRos.loadNow();
-
-			toDis.displayNow(Main.loadRos.getEntries());
-
-  			Main.frame.add(DisplayInfo.scrollStud);
-  			Main.frame.setVisible(true);
   		}
 
   		else if(cont > 0 && selected == "Add Attendance")
@@ -37,18 +31,6 @@ class MenuActionListener implements ActionListener {
   				cont++;
   			prev = "add";
   			Main.addAtt.addNow(Main.loadRos.getEntries());
-			toDis.displayNow(Main.loadRos.getEntries());
-  			System.out.println("back to main from addAtten");
-  			//Main.frame.setVisible(false);
-  			Main.frame.remove(DisplayInfo.scrollStud);
-  			Main.frame.revalidate();
-  			Main.frame.repaint();
-
-  			Main.frame.add(DisplayInfo.scrollStud);
-  			Main.frame.revalidate();
-  			//Main.frame(DisplayInfo.scrollStud);
-  			Main.frame.repaint();
-  			Main.frame.setVisible(true);
 		}
 
 		else if(cont > 1 && selected == "Save")
@@ -94,6 +76,7 @@ public class Main extends JFrame {
 	static Save toSave;
 	static Plot plot;
 	static JFrame frame;
+	static Data data = new Data();
 
 
 	public Main(){
@@ -134,28 +117,19 @@ public class Main extends JFrame {
 		//frame.pack(); //used if we want the frame to resize itself depending on panels
 		frame.setVisible(true);
 
+
+	 	Listener toListen = new Listener();
+	 	data.addObserver(toListen);
+
+
 		//creating classes for options
 		loadRos = new LoadRoster();
 		addAtt = new AddAttendance();
 		toSave = new Save();
 		plot = new Plot();
-
 	}
 
-	static void reprint()
-	{
-		System.out.println("back to main from addAtten");
-		//Main.frame.setVisible(false);
-		Main.frame.remove(DisplayInfo.scrollStud);
-		Main.frame.revalidate();
-		Main.frame.repaint();
-		//Thread.sleep(4000);
-		Main.frame.add(DisplayInfo.scrollStud);
-		Main.frame.revalidate();
- 		//Main.frame(DisplayInfo.scrollStud);
-		Main.frame.repaint();
-  		Main.frame.setVisible(true);
-	}
+
 	public static void main(String[] args) {
 		new Main();
 		//reprint();

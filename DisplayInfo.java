@@ -11,25 +11,37 @@ public class DisplayInfo
 	protected LinkedList<ListEntry> entries = new LinkedList<ListEntry>();
 	JLabel l;
 	static JScrollPane scrollStud;
+	static JTable studInfo;
 
+	/**
+	*
+	*/
 	void displayNow(LinkedList<ListEntry> temp)
 	{
 		entries = temp;
 
-		String column[] = {"ID","First Name","Last Name","Program","Level","ASURITE"};
-		DefaultTableModel model = new DefaultTableModel();
+		ArrayList<String> column = new ArrayList<String>();
+		column.add("ID");
+		column.add("First Name");
+		column.add("Last Name");
+		column.add("Program");
+		column.add("Level");
+		column.add("ASURITE");
 
-
+		int titles = 6;
 		int numDates = entries.get(0).getNumDates();
-		//if(numDates > 0)
+
 		LinkedList<String> datesToEnt = entries.get(0).getDates();
 
 		for(int colm = 0; colm < numDates; colm++)
-			model.addColumn(datesToEnt.get(colm));
+		{
+			column.add(datesToEnt.get(colm));
+			titles++;
+		}
+
 
 		int numColumns = entries.size();
-
-		String[][] data = new String[numColumns][6 + numDates]; //{{"NULL"}, {"NULL"}};
+		String[][] data = new String[numColumns][6 + numDates];
 
 		for(int ind = 0; ind < numColumns; ind++)
 		{
@@ -43,22 +55,17 @@ public class DisplayInfo
 
 			for(int jnd = 0; jnd < numDates; jnd++)
 			{
-				//datesToEnt.get(jnd).printAll();
 				String date = datesToEnt.get(jnd);
 				data[ind][5 + jnd + 1] = toWrite.getTime(date);
-				System.out.println("inside of adding data loop, saying time is " + toWrite.getTime(date));
 			}
-
-			//model.insertRow(ind, new Object[]{data[ind][0], data[ind][1], data[ind][2], data[ind][3], data[ind][4], data[ind][5]});
-			//model.insertRow(ind, new Object[]{"nov"});
 		}
 
-		JTable studInfo = new JTable(data, column);
-		//studInfo.addColumn("test");
+		String columntoPass[] = column.toArray(new String[column.size()]);
+		studInfo = new JTable(data, columntoPass);
 
 		studInfo.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-		for(int i =0; i < 6; i++)
+		for(int i =0; i < titles ; i++)
 			studInfo.getColumnModel().getColumn(i).setPreferredWidth(120);
 
 		scrollStud = new JScrollPane(studInfo);

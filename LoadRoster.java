@@ -73,8 +73,7 @@ public class LoadRoster
         	}
 		}
 
-		//DisplayInfo toDis = new DisplayInfo();
-		//toDis.displayNow(entries);
+		Main.data.update(entries);
 	}
 
 	/**

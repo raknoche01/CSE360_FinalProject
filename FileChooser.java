@@ -4,10 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 import javax.swing.filechooser.*;
 
-
+/**
+*
+*/
 public class FileChooser
 {
-
+	/**
+	*
+	*/
 	String spawnChooser()
 	{
 		JLabel l;
