@@ -72,5 +72,8 @@ public class DisplayInfo
 		scrollStud.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollStud.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 	}
+	JTable getTable() {
+		return studInfo;
+	}
 
 }

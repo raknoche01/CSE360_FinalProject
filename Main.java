@@ -1,4 +1,8 @@
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
@@ -38,10 +42,12 @@ class MenuActionListener implements ActionListener {
 			if(cont == 2)
   				cont++;
 
-  			if(prev == "load")
-  				Main.toSave.saveNow(Main.loadRos.getEntries());
-  			else
-  				Main.toSave.saveNow(Main.addAtt.getEntries());
+  			if(prev == "load") {
+  				Main.toSave.saveNow();
+  				}
+  			else {
+  				Main.toSave.saveNow();
+  			}
 		}
 
 		else if(cont > 2 && selected == "Plot Data")
@@ -99,13 +105,33 @@ public class Main extends JFrame {
 		attendance.addActionListener(new MenuActionListener());
 		save.addActionListener(new MenuActionListener());
 		plotData.addActionListener(new MenuActionListener());
+		
+		//creating action listener for about menu to open dialog box
+		about.addMenuListener(new MenuListener(){
+			@Override
+			public void menuSelected(MenuEvent event) {
+				JOptionPane.showMessageDialog(null, "CSE 360 Final Project (Tuesday Section)\n"
+						  + "---------------------------------------"
+						  + "\nTeam Members:\n"
+						  + "\t\t-Isiah Abad\n"
+						  + "\t\t-Chad Crum\n"
+						  + "\t\t-Jaime Hernandez\n"
+						  + "\t\t-Rebecca Knoche\n"
+						  + "\t\t-Rohan Nair\n"
+						  + "---------------------------------------");
+			}
+			@Override
+			public void menuDeselected(MenuEvent e) {}
+			@Override
+			public void menuCanceled(MenuEvent e) {}
+		});
 
 		//adding menu items for main menus
 		file.add(roster);
 		file.add(attendance);
 		file.add(save);
 		file.add(plotData);
-
+		
 		//adding menu items in menu bar
 		mb.add(file);
 		mb.add(about);
@@ -117,10 +143,8 @@ public class Main extends JFrame {
 		//frame.pack(); //used if we want the frame to resize itself depending on panels
 		frame.setVisible(true);
 
-
 	 	Listener toListen = new Listener();
 	 	data.addObserver(toListen);
-
 
 		//creating classes for options
 		loadRos = new LoadRoster();
@@ -128,8 +152,6 @@ public class Main extends JFrame {
 		toSave = new Save();
 		plot = new Plot();
 	}
-
-
 	public static void main(String[] args) {
 		new Main();
 		//reprint();
