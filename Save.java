@@ -16,6 +16,8 @@ public class Save
 	 */
 	void saveNow()
 	{
+		int i,j,k = 0;
+		
 		DisplayInfo di = new DisplayInfo();
 		
 		JTable table = di.getTable();
@@ -35,15 +37,21 @@ public class Save
 			}
 			FileWriter csv = new FileWriter(saveLocation);
 			
-			for(int i = 0; i < model.getColumnCount(); i++) {
-				csv.write(model.getColumnName(i) + ",");
+			for(i = 0; i < model.getColumnCount(); i++) {
+				if(i + 1 == model.getColumnCount())
+					csv.write(model.getColumnName(i));
+				else
+					csv.write(model.getColumnName(i) + ",");
 			}
 			
 			csv.write("\n");
 			
-			for (int i = 0; i < model.getRowCount(); i++) {
-	            for (int j = 0; j < model.getColumnCount(); j++) {
-	                csv.write(model.getValueAt(i, j).toString() + ",");
+			for (j = 0; j < model.getRowCount(); j++) {
+	            for (k = 0; k < model.getColumnCount(); k++) {
+	            	if(k + 1 == model.getColumnCount()) 
+	            		csv.write(model.getValueAt(j, k).toString());
+	            	else
+	            		csv.write(model.getValueAt(j, k).toString() + ",");
 	            }
 	            csv.write("\n");
 	        }

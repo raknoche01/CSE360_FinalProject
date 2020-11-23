@@ -113,11 +113,11 @@ public class Main extends JFrame {
 				JOptionPane.showMessageDialog(null, "CSE 360 Final Project (Tuesday Section)\n"
 						  + "---------------------------------------"
 						  + "\nTeam Members:\n"
-						  + "\t\t-Isiah Abad\n"
-						  + "\t\t-Chad Crum\n"
-						  + "\t\t-Jaime Hernandez\n"
-						  + "\t\t-Rebecca Knoche\n"
-						  + "\t\t-Rohan Nair\n"
+						  + "\tChad, Crum, cdcrum\n"
+						  + "\tIsiah, Abad, iabad1 \n"
+						  + "\tJaime, Hernandez, jihern10\n"
+						  + "\tRebecca, Knoche, raknoche\n"
+						  + "\tRohan, Nair, ranair3\n"
 						  + "---------------------------------------");
 			}
 			@Override
