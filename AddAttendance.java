@@ -180,9 +180,9 @@ public class AddAttendance
 			output = output + "<br>Unknown: " + asurtiesRejects.get(rejs) + " attended for: " + timesRejects.get(rejs);
 			String timeCon;
 			if(timesRejects.get(rejs) == 1)
-				timeCon = "minute";
+				timeCon = " minute";
 			else
-				timeCon = "minues";
+				timeCon = " minutes";
 			output = output + timeCon;
 		}
 		output = output + "</html>";
