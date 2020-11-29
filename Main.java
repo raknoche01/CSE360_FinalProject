@@ -27,8 +27,7 @@ class MenuActionListener implements ActionListener {
 		DisplayInfo toDis = new DisplayInfo();
   		if(selected == "Load a Roster")
   		{
-  			if(cont == 0)
-  				cont++;
+  			cont = 1;
   			prev = "load";
   			Main.loadRos.loadNow();
   		}
@@ -45,7 +44,6 @@ class MenuActionListener implements ActionListener {
 		{
 			if(cont == 2)
   				cont++;
-
   			if(prev == "load") {
   				Main.toSave.saveNow();
   				}
