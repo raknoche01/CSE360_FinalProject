@@ -3,8 +3,13 @@ import java.awt.event.*;
 import javax.swing.*;
 
 /**
-*
-*/
+ * @author Online Resource https://www.roseindia.net/tutorial/java/swing/datePicker.html
+ * 
+ * This is a DatePicker class from an online method, we decided to use this as a DatePicker since 
+ * JDatePicker is depreciated and we had many problems trying to implement it. 
+ * This is essentially the same thing but in a class instead.
+ * Note - this has not been changed at all to meet the coding standards of Dr.Javier Gonzalez-Sanchez
+ */
 class DatePicker {
 	static int month = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH);
 	static int year = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);;
@@ -13,6 +18,10 @@ class DatePicker {
 	JDialog d;
 	JButton[] button = new JButton[49];
 
+	/**
+	* This is the constructor and it is responsible for intializing the general layout
+	* of the DatePicker to be displayed on screen.
+	*/
 	public DatePicker(JFrame parent) {
 		d = new JDialog();
 		d.setModal(true);
@@ -64,6 +73,9 @@ class DatePicker {
 		d.setVisible(true);
 	}
 
+	/**
+	 * This is to display the datepicker on screen.
+	 */
 	public void displayDate() {
 		for (int x = 7; x < button.length; x++)
 			button[x].setText("");
@@ -79,6 +91,10 @@ class DatePicker {
 		d.setTitle("Date Picker");
 	}
 
+	/**
+	 * This is to set the picked date to the values in the code
+	 * @return the date picked
+	 */
 	public String setPickedDate() {
 		if (day.equals("")) {
 			return day;

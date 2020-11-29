@@ -8,8 +8,10 @@ import java.awt.event.ActionListener;
 import javax.swing.filechooser.*;
 
 /**
- * @author
+ * @author Rohan Nair and Chad Crum
  *
+ * This class is responsible for getting a date, parsing a selected attendance csv file
+ * and then notifying the observer in main so it will be printed to the screen.
  */
 public class AddAttendance
 {
@@ -18,9 +20,11 @@ public class AddAttendance
 	String day;
 	String month;
 
-
-	/*
-	 *
+	/**
+	 * This method is called from main and is used to set entries to the right data.
+	 * It is also used to display DatePicker and store that date to this classes variables.
+	 * It will then check to see if the date has already been entered, if it has it will
+	 * display a message. If not, it will call parseFile
 	 */
 	void addNow(LinkedList<ListEntry> temp)
 	{
@@ -28,31 +32,45 @@ public class AddAttendance
 
 		JLabel label = new JLabel("Selected Date:");
 		final JTextField text = new JTextField(20);
-		JButton b = new JButton("popup");
-		JPanel p = new JPanel();
-		p.add(label);
-		p.add(text);
-		p.add(b);
-		final JFrame f = new JFrame();
-		f.getContentPane().add(p);
-		f.pack();
-		f.setVisible(true);
-		b.addActionListener(new ActionListener() {
+		JButton but = new JButton("popup");
+		JPanel pan = new JPanel();
+		pan.add(label);
+		pan.add(text);
+		pan.add(but);
+		final JFrame fra = new JFrame();
+		fra.getContentPane().add(pan);
+		fra.pack();
+		fra.setVisible(true);
+		but.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
-				text.setText(new DatePicker(f).setPickedDate());
+				text.setText(new DatePicker(fra).setPickedDate());
 				day = DatePicker.day;
 				month = Integer.toString(DatePicker.month + 1);
 				if(month.equals("13"))
 					month = "1";
-				f.setVisible(false);
-
-				parseFile();
+				fra.setVisible(false);
+				
+				LinkedList<String> dates = entries.get(0).getDates();
+				String dateToCheck = entries.get(0).convertDate(month, day);
+				
+				if(!dates.contains(dateToCheck))
+					parseFile();
+				else
+				{
+					JOptionPane pane = new JOptionPane();
+					dialog.add(pane);
+					pane.showMessageDialog(dialog, "Duplicate dates not allowed!");
+				}
 			}
 		});
 	}
 
-	/*
-	*
+	/**
+	* This method is called from addNow and is responsible for creating an instance of
+	* FileChooser and getting the selected file. It will then parse the file and all of
+	* the attendance data to the existing roster information. After that, it will display
+	* all the information of the attendance added. Any users that were not found within
+	* the entries are reported to the user here.
 	*/
 	void parseFile()
 	{
@@ -101,41 +119,41 @@ public class AddAttendance
 		LinkedList <Integer> timesFound = new LinkedList<Integer>();
 
         int count = 0;
-        for(int i = 0; i < entries.size(); i++)
+        for(int ind = 0; ind < entries.size(); ind++)
 		{
-        	for(int j = 0; j < asurites.size(); j++)
+        	for(int jnd = 0; jnd < asurites.size(); jnd++)
         	{
-        		if(asurites.get(j).equals(entries.get(i).getAsurite()))
+        		if(asurites.get(jnd).equals(entries.get(ind).getAsurite()))
         		{
-        			count += times.get(j);
-        			if(!asurtiesFound.contains(asurites.get(j)))
+        			count += times.get(jnd);
+        			if(!asurtiesFound.contains(asurites.get(jnd)))
         			{
-        				asurtiesFound.add(asurites.get(j));
-        				timesFound.add(times.get(j));
+        				asurtiesFound.add(asurites.get(jnd));
+        				timesFound.add(times.get(jnd));
 					}
         		}
         	}
-        	entries.get(i).addDate(month, day, count);
+        	entries.get(ind).addDate(month, day, count);
         	count = 0;
         }
 
 		LinkedList <String> asurtiesRejects = new LinkedList<String>();
 		LinkedList <Integer> timesRejects = new LinkedList<Integer>();
 
-		for(int i = 0; i < asurites.size(); i++)
+		for(int ind = 0; ind < asurites.size(); ind++)
 		{
-			if(!asurtiesFound.contains(asurites.get(i)))
+			if(!asurtiesFound.contains(asurites.get(ind)))
 			{
-				if(!asurtiesRejects.contains(asurites.get(i)))
+				if(!asurtiesRejects.contains(asurites.get(ind)))
 				{
-					asurtiesRejects.add(asurites.get(i));
-					timesRejects.add(times.get(i));
+					asurtiesRejects.add(asurites.get(ind));
+					timesRejects.add(times.get(ind));
 				}
 				else
 				{
-					int loc = asurtiesRejects.indexOf(asurites.get(i));
+					int loc = asurtiesRejects.indexOf(asurites.get(ind));
 					int tempTime = timesRejects.get(loc);
-					timesRejects.set(loc, tempTime + times.get(i));
+					timesRejects.set(loc, tempTime + times.get(ind));
 				}
 			}
 		}
@@ -177,9 +195,9 @@ public class AddAttendance
 		pane.setVisible(true);
 	}
 
-
-	/*
-	 *
+	/**
+	 * This method's only job is to return the updated entries linked list
+	 * @return a linkedList containing ListEntries
 	 */
 	LinkedList<ListEntry> getEntries()
 	{

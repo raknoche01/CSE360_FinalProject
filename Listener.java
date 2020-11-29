@@ -3,13 +3,16 @@ import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
 /**
-*
-*/
+ * @author Chad Crum
+ * 
+ * This class is responsible for reprinting the information on screen when notified by Data.
+ */
 public class Listener extends JPanel implements Observer {
 
 	/**
-	*
-	*/
+	 * This method is called when Data notifies it. It will remove the old information on the
+	 * screen and reprint the new information onto the screen.
+	 */
 	@Override
 	public void update(Observable itm, Object obj) {
 		try{

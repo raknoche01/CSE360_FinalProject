@@ -3,7 +3,7 @@ import java.io.*;
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.filechooser.*;
-/*
+/**
  * @author Jaime Hern and Chad Crum
  * LoadRoster is called by main and is responsible for displaying all the
  * information on screen from a CSV file the user chooses.
@@ -12,8 +12,7 @@ public class LoadRoster
 {
     protected LinkedList<ListEntry> entries = new LinkedList<ListEntry>();
 
-
-	/*
+	/**
 	 * loadNow is responsible for prompting the user to choose a file,
  	 * loading the file selected and gathering all the data.
  	 * It then parses the data and adds it all to our linkedList data structure

@@ -7,14 +7,18 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 /**
- *
  * @author Isiah Abad and Chad Crum
  *
- * The main class creates the menu
- *
+ * The MenuActionListener is responsible for responding to button presses appropriately
+ * and calling the appropriate classes to progress the program.
  */
-
 class MenuActionListener implements ActionListener {
+	/**
+	 * This method is responsible for calling the appropriate classes with the necessary information
+	 * to progress the program. The buttons must be pressed in this order: 
+	 * LoadRoser-> AddAttendnace-> Save-> Plot. If the user attempts to press a button before pressing
+	 * the previous, it will not work.
+	 */
 	public void actionPerformed(ActionEvent event) {
   		String selected = event.getActionCommand();
   		int cont = Main.num;
@@ -68,12 +72,16 @@ class MenuActionListener implements ActionListener {
 	}
 }
 
+/**
+ * @author Isiah Abad and Chad Crum
+ *
+ * The main class creates the menu and is responsible for creating the main menu of the
+ * program and initializing all elements needed for the program. Any menu buttons pushed is passed
+ * to MenuActionListener. 
+ */
 @SuppressWarnings("serial")
 public class Main extends JFrame {
 
-	//create two association variables
-	//1 for the controller
-	//another for the panel
 	static int num = 0;
 	static String last = "NULL";
 
@@ -84,29 +92,23 @@ public class Main extends JFrame {
 	static JFrame frame;
 	static Data data = new Data();
 
-
 	public Main(){
-
 		frame = new JFrame("CSE360 Final Project");
 		JMenuBar mb = new JMenuBar();
 
-		//creating the menus
 		JMenu file = new JMenu("File");
 		JMenu about = new JMenu("About");
 
-		// menu items
 		JMenuItem roster = new JMenuItem("Load a Roster");
 		JMenuItem attendance = new JMenuItem("Add Attendance");
 		JMenuItem save = new JMenuItem("Save");
 		JMenuItem plotData = new JMenuItem("Plot Data");
 
-		//adding actionlisteners
 		roster.addActionListener(new MenuActionListener());
 		attendance.addActionListener(new MenuActionListener());
 		save.addActionListener(new MenuActionListener());
 		plotData.addActionListener(new MenuActionListener());
 		
-		//creating action listener for about menu to open dialog box
 		about.addMenuListener(new MenuListener(){
 			@Override
 			public void menuSelected(MenuEvent event) {
@@ -126,35 +128,33 @@ public class Main extends JFrame {
 			public void menuCanceled(MenuEvent e) {}
 		});
 
-		//adding menu items for main menus
 		file.add(roster);
 		file.add(attendance);
 		file.add(save);
 		file.add(plotData);
 		
-		//adding menu items in menu bar
 		mb.add(file);
 		mb.add(about);
 
-		//setting frame and menu bar
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(600,600);
 		frame.setJMenuBar(mb);
-		//frame.pack(); //used if we want the frame to resize itself depending on panels
 		frame.setVisible(true);
 
 	 	Listener toListen = new Listener();
 	 	data.addObserver(toListen);
 
-		//creating classes for options
 		loadRos = new LoadRoster();
 		addAtt = new AddAttendance();
 		toSave = new Save();
 		plot = new Plot();
 	}
+	/**
+	 * This is the main method of the program, it's only job is to call Main() to initialize everything.
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		new Main();
-		//reprint();
 	}
 
 }

@@ -3,19 +3,27 @@ import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
-/*
-*
-*/
+/**
+ * @author Chad Crum
+ * 
+ * This class is responsible for  Displaying the information of the users to the screen.
+ * It will receive the data inside of displayNow and then will go through all of the data
+ * and put it into a 2 dimensional array. It will then create a JTable with all of the
+ * information and then displays it on the screen.
+ */
 public class DisplayInfo
 {
 	protected LinkedList<ListEntry> entries = new LinkedList<ListEntry>();
 	JLabel l;
 	static JScrollPane scrollStud;
 	static JTable studInfo;
+	int colCount = 6;
 
 	/**
-	*
-	*/
+	 * This method will display the information of the roster and/or attendance.
+	 * It moves all of the data from a LinkedList of ListEntries to a 2D array for printing.
+	 * It then creates the JTable and displays it.
+	 */
 	void displayNow(LinkedList<ListEntry> temp)
 	{
 		entries = temp;
@@ -28,7 +36,7 @@ public class DisplayInfo
 		column.add("Level");
 		column.add("ASURITE");
 
-		int titles = 6;
+		int titles = colCount;
 		int numDates = entries.get(0).getNumDates();
 
 		LinkedList<String> datesToEnt = entries.get(0).getDates();
@@ -38,7 +46,6 @@ public class DisplayInfo
 			column.add(datesToEnt.get(colm));
 			titles++;
 		}
-
 
 		int numColumns = entries.size();
 		String[][] data = new String[numColumns][6 + numDates];
@@ -56,7 +63,7 @@ public class DisplayInfo
 			for(int jnd = 0; jnd < numDates; jnd++)
 			{
 				String date = datesToEnt.get(jnd);
-				data[ind][5 + jnd + 1] = toWrite.getTime(date);
+				data[ind][colCount + jnd] = toWrite.getTime(date);
 			}
 		}
 
@@ -65,13 +72,17 @@ public class DisplayInfo
 
 		studInfo.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-		for(int i =0; i < titles ; i++)
-			studInfo.getColumnModel().getColumn(i).setPreferredWidth(120);
+		for(int ind = 0; ind < titles ; ind++)
+			studInfo.getColumnModel().getColumn(ind).setPreferredWidth(120);
 
 		scrollStud = new JScrollPane(studInfo);
 		scrollStud.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollStud.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 	}
+	/**
+	 * This method is to return the JTable created above.
+	 * @return JTable containing the displayed information.
+	 */
 	JTable getTable() {
 		return studInfo;
 	}
