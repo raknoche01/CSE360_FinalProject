@@ -24,7 +24,10 @@ public class LoadRoster
 		FileChooser fChoose = new FileChooser();
 		String csvFile = "NULL";
 		csvFile = fChoose.spawnChooser();
-
+		
+		while(entries.size() != 0)
+			entries.remove();
+		
 		if(csvFile != "NULL")
 		{
 			String delim = ",";
